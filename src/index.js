@@ -7,16 +7,25 @@ import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 
 // this is a reducer
-const firstReducer = (state={}, action) => {
+const firstReducer = (state = 0, action) => {  
   if (action.type === 'BUTTON_ONE') {
-    console.log('hello from the first reducer; action:', action);
+    state++;
+    console.log('hello from the first reducer. What’s the state?', state);
   }
   return state; // reducers MUST return SOMETHING other than undefined
 }
 
-const secondReducer = (state={}, action) => {
+const secondReducer = (state = 100, action) => {
   if (action.type === 'BUTTON_TWO') {
-    console.log('hello from the second reducer; action:', action);
+    state--;
+    console.log('hello from the second reducer; state:', state);
+  }
+  return state;
+}
+
+const addElementReducer = (state={}, action) => {
+  if(action.type === 'ADD_ELEMENT') {
+    console.log(`Enjoy some delicious ${action.payload}!`);
   }
   return state;
 }
@@ -24,7 +33,8 @@ const secondReducer = (state={}, action) => {
 const storeInstance = createStore(
   combineReducers({
     firstReducer,
-    secondReducer
+    secondReducer,
+    addElementReducer
   })
 );
 

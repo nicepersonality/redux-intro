@@ -3,6 +3,16 @@ import './App.css';
 import { connect } from 'react-redux';
 
 class App extends Component {
+  state = {
+    element: ''
+  }
+
+  handleChange = (event) => {
+    this.setState({
+      element: event.target.value
+    });
+  }
+
   render() {
     return (
       <div className="App">
@@ -12,7 +22,13 @@ class App extends Component {
         }>Button One</button>
         <button onClick={
           () => this.props.dispatch( { type: 'BUTTON_TWO' } )
-        }>Button Two</button>
+        }>Button Two</button><br />
+        {/* add input that fires a function to update local state */}
+        <input onChange={this.handleChange} placeholder="element" />
+        {/* make the Add Element button send the local state var */}
+        <button onClick={
+          () => this.props.dispatch( { type: 'ADD_ELEMENT', payload: this.state.element } )
+        }>Add Element</button>
       </div>
     );
   }
